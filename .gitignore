@@ -1,0 +1,11 @@
+# MATLAB 仿真输出
+assets/output/
+
+# MATLAB 自动生成文件
+*.asv
+*.m~
+*.mat
+
+# 系统文件
+.DS_Store
+Thumbs.db
