@@ -17,26 +17,31 @@ description: 飞轮储能参与电网频率调节的科研仿真技能。搭建 
 - **两种扰动场景**：阶跃负荷扰动、新能源功率波动（正弦），可组合。
 - **论文级输出**：频率响应曲线、RoCoF、各机功率分配、飞轮功率/SOC，及指标报告（nadir、RoCoF、稳态频差、调频里程）。
 
-## 环境（本机已验证）
+## 环境
 
-- MATLAB R2025a，版本 25.1.0.2943329
-- 安装根 `D:\Program Files\`，`matlab` 在 Git Bash PATH 中可用
-- 复用 `matlab-runner` 技能的运行规范（`matlab -batch` 无界面执行、UTF-8 结果文件、中文图渲染）
+- MATLAB R2025a 或更高版本（无需额外工具箱）
+- 通过 `matlab -batch` 无界面执行，UTF-8 结果文件，中文图渲染
 
 ## 快速开始
 
 ### 1. 默认参数直接运行（典型 8 区系统 + 阶跃负荷扰动）
 
-```bash
-matlab -batch "cd('C:/Users/hp/.workbuddy/skills/flywheel-fr/assets'); R=fr_sim(); fr_plot(R);"
+```matlab
+% 在 assets 目录下运行
+cd assets
+R = fr_sim();        % 含飞轮仿真
+fr_plot(R);          % 生成论文配图
 ```
 
 输出到 `assets/output/`：`report.txt`（指标）与 4 张论文配图（含有无飞轮对比）。
 
 ### 2. 用自定义参数运行
 
-```bash
-matlab -batch "cd('C:/Users/hp/.workbuddy/skills/flywheel-fr/assets'); R=fr_sim('params_example.m'); fr_plot(R);"
+```matlab
+% 在 assets 目录下运行
+cd assets
+R = fr_sim('params_example.m');   % 传入自定义参数文件
+fr_plot(R);
 ```
 
 ### 3. 有无飞轮对比（论文核心图）
@@ -114,8 +119,7 @@ flywheel-fr/
 3. **参数敏感性分析**：循环遍历 `Hfes`/`Kf`，绘制 nadir 随参数变化曲线。
 4. **Simulink 对照**：按 `references/simulink_guide.md` 搭建等价模型验证。
 
-## 与已有飞轮储能成果的关系
+## 模型来源与致谢
 
-- 复用 `flywheel_sim.m`（`D:\Workbuddy用\飞轮储能\flywheel_sim.m`）的转子物理参数与损耗模型。
-- 公式集见 `D:\Workbuddy用\飞轮储能\飞轮储能计算公式集.md`。
-- 调频模型范式对齐 12 篇飞轮文献中的风电并网调频研究（陈俊涛、王宪、周玉洁等）。
+- 飞轮转子物理参数（m=500 kg、r=0.6 m、J=90 kg·m²）取自典型飞轮储能样机。
+- 调频模型范式对齐 12 篇飞轮储能调频文献中的风电并网调频研究（陈俊涛、王宪、周玉洁等）。
